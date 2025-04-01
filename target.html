@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PROJECT NEXUS | TARGETS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <style>
+        :root {
+            --primary: #e53e3e;
+            --secondary: #1a202c;
+            --accent: #fff;
+        }
+        body {
+            background-color: var(--secondary);
+            color: var(--accent);
+            font-family: 'Courier New', monospace;
+            overflow-x: hidden;
+        }
+        .glow {
+            text-shadow: 0 0 10px var(--primary), 0 0 20px var(--primary);
+        }
+        .terminal-border {
+            border: 1px solid var(--primary);
+            box-shadow: 0 0 15px rgba(229, 62, 62, 0.5);
+        }
+        .pulse-animation {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { opacity: 0.7; }
+            50% { opacity: 1; }
+            100% { opacity: 0.7; }
+        }
+        .typewriter {
+            overflow: hidden;
+            border-right: 2px solid var(--primary);
+            white-space: nowrap;
+            letter-spacing: 2px;
+            animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+        }
+        .terminal-line {
+            display: flex;
+            margin-bottom: 0.5rem;
+        }
+        .prompt {
+            color: var(--primary);
+            margin-right: 0.5rem;
+        }
+        .target-card {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        .target-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(229, 62, 62, 0.4);
+        }
+        .target-eliminated {
+            position: relative;
+        }
+        .target-eliminated::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(45deg, transparent 45%, #e53e3e 45%, #e53e3e 55%, transparent 55%),
+                linear-gradient(-45deg, transparent 45%, #e53e3e 45%, #e53e3e 55%, transparent 55%);
+            background-size: 10px 10px;
+            opacity: 0.8;
+        }
+        .severity-critical {
+            border-left: 4px solid #e53e3e;
+        }
+        .severity-high {
+            border-left: 4px solid #ed8936;
+        }
+        .severity-medium {
+            border-left: 4px solid #ecc94b;
+        }
+        .severity-low {
+            border-left: 4px solid #38a169;
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <!-- Red Team Header -->
+    <div class="relative bg-black/80 border-b border-red-900/50">
+        <!-- Animated Background -->
+        <div class="absolute inset-0">
+            <div class="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10"></div>
+            <div class="absolute inset-0 bg-gradient-to-b from-red-900/5 to-transparent"></div>
+        </div>
+                
+        <div class="relative z-10 container mx-auto px-4 py-6 flex justify-between items-center">
+            <div class="flex items-center space-x-4">
+                <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                <h1 class="text-xl font-bold tracking-wide">PROJECT <span class="text-red-500">NEXUS</span></h1>
+            </div>
+                        
+            <div class="hidden md:flex space-x-6">
+                <a href="nexus.html" class="text-gray-400 hover:text-white transition">DASHBOARD</a>
+                <a href="#" class="text-gray-400 hover:text-white transition">WEAPONS</a>
+                <a href="#" class="text-white transition">TARGETS</a>
+                <a href="#" class="text-gray-400 hover:text-white transition">REPORTS</a>
+            </div>
+                        
+            <div class="flex items-center space-x-4">
+                <div class="pulse-animation">
+                    <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                </div>
+                <span class="text-gray-400 text-sm">RED TEAM ACTIVE</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Operations Panel -->
+    <div class="container mx-auto px-4 py-12">
+        <!-- Target Analysis -->
+        <div class="flex justify-between items-center mb-8">
+            <h2 class="text-3xl font-bold glow">TARGET <span class="text-red-500">ANALYSIS</span></h2>
+            <div class="flex space-x-4">
+                <button class="text-red-500 hover:text-white px-4 py-2 border border-red-500 hover:bg-red-900/30 transition">
+                    SCAN NEW TARGET
+                </button>
+                <button class="bg-red-900/30 text-white px-4 py-2 border border-red-700 hover:bg-red-900/40 transition">
+                    EXPORT DATA
+                </button>
+            </div>
+        </div>
+
+        <!-- Target Status Summary -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
+            <div class="terminal-border p-6 bg-gray-900/30">
+                <div class="flex justify-between items-start">
+                    <h3 class="text-gray-400 mb-4">TOTAL TARGETS</h3>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                    </svg>
+                </div>
+                <div class="flex items-end space-x-2">
+                    <span class="text-4xl font-bold">47</span>
+                    <span class="text-green-500 text-sm mb-1">+12 this week</span>
+                </div>
+            </div>
+            <div class="terminal-border p-6 bg-gray-900/30">
+                <div class="flex justify-between items-start">
+                    <h3 class="text-gray-400 mb-4">COMPROMISED</h3>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" />
+                    </svg>
+                </div>
+                <div class="flex items-end space-x-2">
+                    <span class="text-4xl font-bold text-red-500">29</span>
+                    <span class="text-green-500 text-sm mb-1">61.7% success</span>
+                </div>
+            </div>
+            <div class="terminal-border p-6 bg-gray-900/30">
+                <div class="flex justify-between items-start">
+                    <h3 class="text-gray-400 mb-4">IN PROGRESS</h3>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                </div>
+                <div class="flex items-end space-x-2">
+                    <span class="text-4xl font-bold text-yellow-500">11</span>
+                    <span class="text-red-500 text-sm mb-1">-3 this week</span>
+                </div>
+            </div>
+            <div class="terminal-border p-6 bg-gray-900/30">
+                <div class="flex justify-between items-start">
+                    <h3 class="text-gray-400 mb-4">NEW VULNS</h3>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+                    </svg>
+                </div>
+                <div class="flex items-end space-x-2">
+                    <span class="text-4xl font-bold text-green-500">142</span>
+                    <span class="text-yellow-500 text-sm mb-1">+23 critical</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Priority Targets -->
+        <div class="mb-12">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-3xl font-bold glow">PRIORITY <span class="text-red-500">TARGETS</span></h2>
+                <div class="flex space-x-2">
+                    <button class="text-xs text-gray-400 hover:text-white px-3 py-1 border border-gray-500 hover:bg-gray-900/30 transition">
+                        CRITICAL
+                    </button>
+                    <button class="text-xs text-gray-400 hover:text-white px-3 py-1 border border-gray-500 hover:bg-gray-900/30 transition">
+                        HIGH VALUE
+                    </button>
+                    <button class="text-xs text-gray-400 hover:text-white px-3 py-1 border border-gray-500 hover:bg-gray-900/30 transition">
+                        ALL TARGETS
+                    </button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Target 1 - Eliminated -->
+                <div class="terminal-border p-6 bg-gray-900/30 target-card severity-critical">
+                    <div class="target-eliminated">
+                        <div class="flex items-center mb-4">
+                            <div class="w-16 h-16 rounded-full overflow-hidden border-2 border-red-500 mr-4 grayscale">
+                                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Target" class="w-full h-full object-cover">
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold">MARKUS R.</h3>
+                                <p class="text-gray-400">Chief Security Officer</p>
+                                <div class="text-xs text-red-500 mt-1">COMPROMISED</div>
+                            </div>
+                        </div>
+                        <div class="space-y-3">
+                            <div>
+                                <span class="text-gray-400 text-sm">Company:</span>
+                                <p>OmniCorp Security</p>
+                            </div>
+                            <div>
+                                <span class="text-gray-400 text-sm">Access Level:</span>
+                                <p>Alpha-9 Clearance</p>
+                            </div>
+                            <div>
+                                <span class="text-gray-400 text-sm">Exploit Used:</span>
+                                <p class="text-red-300">Phishing + Credential Reuse</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Target 2 - Active -->
+                <div class="terminal-border p-6 bg-gray-900/30 target-card severity-high">
+                    <div class="flex items-center mb-4">
+                        <div class="w-16 h-16 rounded-full overflow-hidden border-2 border-yellow-500 mr-4">
+                            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Target" class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold">JESSICA L.</h3>
+                            <p class="text-gray-400">Cloud Architect</p>
+                            <div class="text-xs text-yellow-500 mt-1">ACTIVE EXPLOIT</div>
+                        </div>
+                    </div>
+                    <div class="space-y-3">
+                        <div>
+                            <span class="text-gray-400 text-sm">Company:</span>
+                            <p>Nimbus Systems</p>
+                        </div>
+                        <div>
+                            <span class="text-gray-400 text-sm">Access Level:</span>
+                            <p>AWS Root Access</p>
+                        </div>
+                        <div>
+                            <span class="text-gray-400 text-sm">Vulnerability:</span>
+                            <p class="text-yellow-300">Privilege Escalation (CVE-2023-3245)</p>
+                        </div>
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-gray-800/50">
+                        <div class="flex justify-between text-xs text-gray-400 mb-1">
+                            <span>Progress</span>
+                            <span>87%</span>
+                        </div>
+                        <div class="w-full bg-gray-800 rounded-full h-1.5">
+                            <div class="bg-yellow-500 h-1.5 rounded-full" style="width: 87%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Target 3 - Eliminated -->
+                <div class="terminal-border p-6 bg-gray-900/30 target-card severity-critical">
+                    <div class="target-eliminated">
+                        <div class="flex items-center mb-4">
+                            <div class="w-16 h-16 rounded-full overflow-hidden border-2 border-red-500 mr-4 grayscale">
+                                <img src="https://randomuser.me/api/portraits/men/67.jpg" alt="Target" class="w-full h-full object-cover">
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold">VICTOR K.</h3>
+                                <p class="text-gray-400">DevOps Lead</p>
+                                <div class="text-xs text-red-500 mt-1">COMPROMISED</div>
+                            </div>
+                        </div>
+                        <div class="space-y-3">
+                            <div>
+                                <span class="text-gray-400 text-sm">Company:</span>
+                                <p>Quantum Dynamics</p>
+                            </div>
+                            <div>
+                                <span class="text-gray-400 text-sm">Access Level:</span>
+                                <p>Kubernetes Cluster Admin</p>
+                            </div>
+                            <div>
+                                <span class="text-gray-400 text-sm">Exploit Used:</span>
+                                <p class="text-red-300">Container Escape (CVE-2023-1234)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Target 4 - Active -->
+                <div class="terminal-border p-6 bg-gray-900/30 target-card severity-medium">
+                    <div class="flex items-center mb-4">
+                        <div class="w-16 h-16 rounded-full overflow-hidden border-2 border-yellow-500 mr-4">
+                            <img src="https://randomuser.me/api/portraits/women/28.jpg" alt="Target" class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold">AMY S.</h3>
+                            <p class="text-gray-400">Finance Director</p>
+                            <div class="text-xs text-yellow-500 mt-1">SOCIAL ENGINEERING</div>
+                        </div>
+                    </div>
+                    <div class="space-y-3">
+                        <div>
+                            <span class="text-gray-400 text-sm">Company:</span>
+                            <p>Blackstone Financial</p>
+                        </div>
+                        <div>
+                            <span class="text-gray-400 text-sm">Access Level:</span>
+                            <p>Bank Transfer Authorization</p>
+                        </div>
+                        <div>
+                            <span class="text-gray-400 text-sm">Approach:</span>
+                            <p class="text-yellow-300">Spear Phishing Campaign</p>
+                        </div>
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-gray-800/50">
+                        <div class="flex justify-between text-xs text-gray-400 mb-1">
+                            <span>Progress</span>
+                            <span>42%</span>
+                        </div>
+                        <div class="w-full bg-gray-800 rounded-full h-1.5">
+                            <div class="bg-yellow-500 h-1.5 rounded-full" style="width: 42%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Target 5 - Eliminated -->
+                <div class="terminal-border p-6 bg-gray-900/30 target-card severity-critical">
+                    <div class="target-eliminated">
+                        <div class="flex items-center mb-4">
+                            <div class="w-16 h-16 rounded-full overflow-hidden border-2 border-red-500 mr-4 grayscale">
+                                <img src="https://randomuser.me/api/portraits/men/52.jpg" alt="Target" class="w-full h-full object-cover">
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold">RYAN T.</h3>
+                                <p class="text-gray-400">Network Admin</p>
+                                <div class="text-xs text-red-500 mt-1">COMPROMISED</div>
+                            </div>
+                        </div>
+                        <div class="space-y-3">
+                            <div>
+                                <span class="text-gray-400 text-sm">Company:</span>
+                                <p>TelCore Networks</p>
+                            </div>
+                            <div>
+                                <span class="text-gray-400 text-sm">Access Level:</span>
+                                <p>Enterprise VPN Access</p>
+                            </div>
+                            <div>
+                                <span class="text-gray-400 text-sm">Exploit Used:</span>
+                                <p class="text-red-300">Password Spraying + MFA Fatigue</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Target 6 - New -->
+                <div class="terminal-border p-6 bg-gray-900/30 target-card severity-low">
+                    <div class="flex items-center mb-4">
+                        <div class="w-16 h-16 rounded-full overflow-hidden border-2 border-gray-500 mr-4">
+                            <img src="https://randomuser.me/api/portraits/women/63.jpg" alt="Target" class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold">DIANA P.</h3>
+                            <p class="text-gray-400">HR Manager</p>
+                            <div class="text-xs text-gray-400 mt-1">POTENTIAL TARGET</div>
+                        </div>
+                    </div>
+                    <div class="space-y-3">
+                        <div>
+                            <span class="text-gray-400 text-sm">Company:</span>
+                            <p>Vertex Technologies</p>
+                        </div>
+                        <div>
+                            <span class="text-gray-400 text-sm">Access Level:</span>
+                            <p>Employee Database</p>
+                        </div>
+                        <div>
+                            <span class="text-gray-400 text-sm">Weakness:</span>
+                            <p class="text-gray-400">Public Social Media Exposure</p>
+                        </div>
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-gray-800/50">
+                        <button class="w-full text-gray-200 hover:text-white px-4 py-2 bg-gray-800 hover:bg-red-900/30 border border-gray-700 hover:border-red-700 transition">
+                            INITIATE RECON
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Target Systems Table -->
+        <div class="mb-12">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-3xl font-bold glow">TARGET <span class="text-red-500">SYSTEMS</span></h2>
+                <div class="relative">
+                    <input type="text" placeholder="Search systems..." class="bg-gray-900/50 border border-gray-700 rounded px-4 py-2 pl-10 text-sm focus:outline-none focus:border-red-500">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-500 absolute left-3 top-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                </div>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="w-full border-collapse">
+                    <thead>
+                        <tr class="border-b border-red-900/50 text-left">
+                            <th class="p-3 text-gray-400 font-medium">TARGET ID</th>
+                            <th class="p-3 text-gray-400 font-medium">SYSTEM</th>
+                            <th class="p-3 text-gray-400 font-medium">STATUS</th>
+                            <th class="p-3 text-gray-400 font-medium">VULNERABILITIES</th>
+                            <th class="p-3 text-gray-400 font-medium">LAST ACCESS</th>
+                            <th class="p-3 text-gray-400 font-medium">ACTIONS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- System 1 -->
+                        <tr class="border-b border-red-900/10 hover:bg-red-900/5 transition">
+                            <td class="p-3 font-mono">#SYS-4927</td>
+                            <td class="p-3">
+                                <div class="flex items-center">
+                                    <div class="w-8 h-8 bg-red-900/30 rounded-full flex items-center justify-center mr-3">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01" />
+                                        </svg>
+                                    </div>
+                                    <span>Billing API (v3.2)</span>
+                                </div>
+                            </td>
+                            <td class="p-3">
+                                <span class="px-2 py-1 bg-red-900/30 text-red-500 text-xs rounded">COMPROMISED</span>
+                            </td>
+                            <td class="p-3">
+                                <div class="flex">
+                                    <span class="px-2 py-1 bg-red-900/30 text-red-300 text-xs rounded mr-1">SQLi</span>
+                                    <span class="px-2 py-1 bg-orange-900/30 text-orange-300 text-xs rounded mr-1">IDOR</span>
+                                    <span class="px-2 py-1 bg-yellow-900/30 text-yellow-300 text-xs rounded">Auth Bypass</span>
+                                </div>
+                            </td>
+                            <td class="p-3 text-gray-400 text-sm">12 minutes ago</td>
+                            <td class="p-3">
+                                <div class="flex space-x-2">
+                                    <button class="text-xs text-red-500 hover:text-white px-2 py-1 border border-red-500 hover:bg-red-900/30 transition">
+                                        EXPAND
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        
+                        <!-- System 2 -->
+                        <tr class="border-b border-red-900/10 hover:bg-red-900/5 transition">
+                            <td class="p-3 font-mono">#SYS-3814</td>
+                            <td class="p-3">
+                                <div class="flex items-center">
+                                    <div class="w-8 h-8 bg-yellow-900/30 rounded-full flex items-center justify-center mr-3">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
+                                        </svg>
+                                    </div>
+                                    <span>Admin Dashboard</span>
+                                </div>
+                            </td>
+                            <td class="p-3">
+                                <span class="px-2 py-1 bg-yellow-900/30 text-yellow-500 text-xs rounded">EXPLOITING</span>
+                            </td>
+                            <td class="p-3">
+                                <div class="flex">
+                                    <span class="px-2 py-1 bg-yellow-900/30 text-yellow-300 text-xs rounded mr-1">CSRF</span>
+                                    <span class="px-2 py-1 bg-purple-900/30 text-purple-300 text-xs rounded">SSRF</span>
+                                </div>
+                            </td>
+                            <td class="p-3 text-gray-400 text-sm">47 minutes ago</td>
+                            <td class="p-3">
+                                <div class="flex space-x-2">
+                                    <button class="text-xs text-red-500 hover:text-white px-2 py-1 border border-red-500 hover:bg-red-900/30 transition">
+                                        EXPAND
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        
+                        <!-- System 3 -->
+                        <tr class="border-b border-red-900/10 hover:bg-red-900/5 transition">
+                            <td class="p-3 font-mono">#SYS-2765</td>
+                            <td class="p-3">
+                                <div class="flex items-center">
+                                    <div class="w-8 h-8 bg-green-900/30 rounded-full flex items-center justify-center mr-3">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01" />
+                                        </svg>
+                                    </div>
+                                    <span>SSO Authentication</span>
+                                </div>
+                            </td>
+                            <td class="p-3">
+                                <span class="px-2 py-1 bg-green-900/30 text-green-500 text-xs rounded">RECON</span>
+                            </td>
+                            <td class="p-3">
+                                <div class="flex">
+                                    <span class="px-2 py-1 bg-gray-900/30 text-gray-300 text-xs rounded">Potential</span>
+                                </div>
+                            </td>
+                            <td class="p-3 text-gray-400 text-sm">2 hours ago</td>
+                            <td class="p-3">
+                                <div class="flex space-x-2">
+                                    <button class="text-xs text-red-500 hover:text-white px-2 py-1 border border-red-500 hover:bg-red-900/30 transition">
+                                        ANALYZE
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        
+                        <!-- System 4 -->
+                        <tr class="border-b border-red-900/10 hover:bg-red-900/5 transition">
+                            <td class="p-3 font-mono">#SYS-1842</td>
+                            <td class="p-3">
+                                <div class="flex items-center">
+                                    <div class="w-8 h-8 bg-red-900/30 rounded-full flex items-center justify-center mr-3">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                                        </svg>
+                                    </div>
+                                    <span>VPN Gateway</span>
+                                </div>
+                            </td>
+                            <td class="p-3">
+                                <span class="px-2 py-1 bg-red-900/30 text-red-500 text-xs rounded">COMPROMISED</span>
+                            </td>
+                            <td class="p-3">
+                                <div class="flex">
+                                    <span class="px-2 py-1 bg-red-900/30 text-red-300 text-xs rounded mr-1">CVE-2023-1234</span>
+                                    <span class="px-2 py-1 bg-blue-900/30 text-blue-300 text-xs rounded">Log4j</span>
+                                </div>
+                            </td>
+                            <td class="p-3 text-gray-400 text-sm">5 hours ago</td>
+                            <td class="p-3">
+                                <div class="flex space-x-2">
+                                    <button class="text-xs text-red-500 hover:text-white px-2 py-1 border border-red-500 hover:bg-red-900/30 transition">
+                                        EXPAND
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="flex justify-between items-center mt-4 text-sm text-gray-400">
+                <div>Showing 4 of 27 systems</div>
+                <div class="flex space-x-2">
+                    <button class="px-3 py-1 border border-gray-700 rounded hover:bg-gray-800/30">Previous</button>
+                    <button class="px-3 py-1 border border-red-700 rounded bg-red-900/30">1</button>
+                    <button class="px-3 py-1 border border-gray-700 rounded hover:bg-gray-800/30">2</button>
+                    <button class="px-3 py-1 border border-gray-700 rounded hover:bg-gray-800/30">3</button>
+                    <button class="px-3 py-1 border border-gray-700 rounded hover:bg-gray-800/30">Next</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Target Command Console -->
+        <div class="terminal-border p-6 bg-black/70">
+            <h2 class="text-2xl font-bold mb-4 text-red-500">TARGET COMMAND CONSOLE</h2>
+            
+            <div class="bg-black p-4 rounded mb-4 h-64 overflow-y-auto font-mono text-sm">
+                <div class="terminal-line">
+                    <span class="prompt text-green-500">target@nexus:~$</span>
+                    <span>Initializing target acquisition protocol...</span>
+                </div>
+                <div class="terminal-line">
+                    <span class="prompt text-green-500">></span>
+                    <span>Scanning network topology (198 active nodes)</span>
+                </div>
+                <div class="terminal-line">
+                    <span class="prompt text-green-500">></span>
+                    <span>Identified high-value targets: 12</span>
+                </div>
+                <div class="terminal-line">
+                    <span class="prompt text-green-500">></span>
+                    <span class="text-yellow-300">ALERT: Blue team monitoring detected on subnet 10.2.4.0/24</span>
+                </div>
+                <div class="terminal-line">
+                    <span class="prompt text-green-500">></span>
+                    <span>Configuring stealth mode (TOR + obfuscation)</span>
+                </div>
+                <div class="terminal-line">
+                    <span class="prompt text-green-500">></span>
+                    <span class="text-green-300">SYSTEM READY: Awaiting commands</span>
+                </div>
+            </div>
+            
+            <div class="flex items-center">
+                <span class="prompt text-green-500 mr-2">target@nexus:~$</span>
+                <input type="text" class="bg-transparent border-none outline-none text-white font-mono flex-grow" placeholder="type 'help' for target commands">
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="border-t border-red-900/50 py-8 px-4">
+        <div class="container mx-auto flex flex-col md:flex-row justify-between items-center">
+            <div class="flex items-center space-x-2 mb-4 md:mb-0">
+                <div class="w-2 h-2 rounded-full bg-red-500 pulse-animation"></div>
+                <span class="text-sm">RED TEAM OPERATIONS</span>
+            </div>
+            <div class="text-sm text-gray-400">
+                <span class="hidden md:inline-block">|</span> SECURITY CLEARANCE: TOP SECRET 
+                <span class="hidden md:inline-block">|</span> ACCESS LEVEL: ALPHA-9
+                <span class="hidden md:inline-block">|</span> PROJECT NEXUS v4.2.1
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simulate scanning progress for targets
+        document.querySelectorAll('.target-card').forEach(card => {
+            if (!card.querySelector('.target-eliminated')) {
+                const progressBar = card.querySelector('div[style*="width"]');
+                if (progressBar) {
+                    let width = parseInt(progressBar.style.width);
+                    const interval = setInterval(() => {
+                        width += Math.random() * 2;
+                        if (width >= 100) {
+                            width = 100;
+                            clearInterval(interval);
+                        }
+                        progressBar.style.width = `${width}%`;
+                    }, 1000);
+                }
+            }
+        });
+
+        // Add click effect to target cards
+        document.querySelectorAll('.target-card').forEach(card => {
+            card.addEventListener('click', function() {
+                if (!this.classList.contains('severity-critical')) {
+                    this.classList.toggle('bg-gray-800/50');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
