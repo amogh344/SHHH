@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PROJECT NEXUS | WEAPONS INVENTORY</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <style>
+        :root {
+            --primary: #e53e3e;
+            --secondary: #1a202c;
+            --accent: #fff;
+        }
+        body {
+            background-color: var(--secondary);
+            color: var(--accent);
+            font-family: 'Courier New', monospace;
+            overflow-x: hidden;
+        }
+        .glow {
+            text-shadow: 0 0 10px var(--primary), 0 0 20px var(--primary);
+        }
+        .terminal-border {
+            border: 1px solid var(--primary);
+            box-shadow: 0 0 15px rgba(229, 62, 62, 0.5);
+        }
+        .pulse-animation {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { opacity: 0.7; }
+            50% { opacity: 1; }
+            100% { opacity: 0.7; }
+        }
+        .weapon-icon {
+            filter: drop-shadow(0 0 5px rgba(229, 62, 62, 0.7));
+        }
+        .weapon-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(229, 62, 62, 0.4);
+        }
+        .blood-drip {
+            position: relative;
+        }
+        .blood-drip::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent 10%, #e53e3e 50%, transparent 90%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .blood-drip:hover::after {
+            opacity: 1;
+        }
+        .danger-level {
+            position: relative;
+        }
+        .danger-level::after {
+            content: "";
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: var(--primary);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+        .danger-level:hover::after {
+            transform: scaleX(1);
+        }
+        .scanning-laser {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+            animation: scanlaser 3s linear infinite;
+            opacity: 0.7;
+        }
+        @keyframes scanlaser {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(100vh); }
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <!-- Weapons Header (more aggressive) -->
+    <div class="relative bg-black border-b border-red-900/50">
+        <!-- Animated Background -->
+        <div class="absolute inset-0">
+            <div class="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10"></div>
+            <div class="absolute inset-0 bg-gradient-to-b from-red-900/10 to-transparent"></div>
+            <div class="scanning-laser"></div>
+        </div>
+        
+        <div class="relative z-10 container mx-auto px-4 py-6 flex justify-between items-center">
+            <div class="flex items-center space-x-4">
+                <div class="w-3 h-3 rounded-full bg-red-500 animate-pulse"></div>
+                <h1 class="text-xl font-bold tracking-wide">WEAPONS <span class="text-red-500">INVENTORY</span></h1>
+            </div>
+            
+            <div class="hidden md:flex space-x-6">
+                <a href="nexus.html" class="text-gray-400 hover:text-white transition">DASHBOARD</a>
+                <a href="weapons.html" class="text-red-500 border-b border-red-500 pb-1">WEAPONS</a>
+                <a href="#" class="text-gray-400 hover:text-white transition">TARGETS</a>
+                <a href="#" class="text-gray-400 hover:text-white transition">REPORTS</a>
+            </div>
+            
+            <div class="flex items-center space-x-4">
+                <div class="pulse-animation">
+                    <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                </div>
+                <span class="text-gray-400 text-sm">LOCKED & LOADED</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Weapons Display -->
+    <div class="container mx-auto px-4 py-12">
+        <!-- Blood Stained Title -->
+        <div class="text-center mb-16 relative">
+            <h1 class="text-5xl font-bold mb-4 blood-drip inline-block">
+                <span class="glow">DEADLY</span> 
+                <span class="text-red-500 glow">ARSENAL</span>
+            </h1>
+            <p class="text-gray-400 max-w-2xl mx-auto">
+                Advanced cyber weapons engineered for maximum destruction and minimal attribution.
+                Zero-click exploits, AI-powered malware, and autonomous attack frameworks.
+            </p>
+        </div>
+
+        <!-- Weapon Categories -->
+        <div class="mb-12">
+            <h2 class="text-2xl font-bold mb-6 text-center blood-drip inline-block">
+                <span class="border-b border-red-500 pb-1">WEAPON</span> 
+                <span class="text-red-500">CLASSIFICATIONS</span>
+            </h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+                <!-- Stealth -->
+                <div class="terminal-border p-6 bg-gray-900/20 text-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto mb-4 text-red-500 weapon-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+                    </svg>
+                    <h3 class="text-xl font-bold mb-2">STEALTH</h3>
+                    <p class="text-gray-400 text-sm">
+                        Undetectable payloads with polymorphic code and anti-forensic capabilities
+                    </p>
+                    <div class="mt-4">
+                        <span class="text-xs bg-red-900/50 text-red-300 px-3 py-1 rounded-full">11 TOOLS</span>
+                    </div>
+                </div>
+                
+                <!-- Destructive -->
+                <div class="terminal-border p-6 bg-gray-900/20 text-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto mb-4 text-red-500 weapon-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                    <h3 class="text-xl font-bold mb-2">DESTRUCTIVE</h3>
+                    <p class="text-gray-400 text-sm">
+                        Data wipers, ransomware, and system-destroying payloads with 99% success rate
+                    </p>
+                    <div class="mt-4">
+                        <span class="text-xs bg-red-900/50 text-red-300 px-3 py-1 rounded-full">7 TOOLS</span>
+                    </div>
+                </div>
+                
+                <!-- Persistent -->
+                <div class="terminal-border p-6 bg-gray-900/20 text-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto mb-4 text-red-500 weapon-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                    </svg>
+                    <h3 class="text-xl font-bold mb-2">PERSISTENT</h3>
+                    <p class="text-gray-400 text-sm">
+                        Advanced implants with firmware-level persistence and self-healing capabilities
+                    </p>
+                    <div class="mt-4">
+                        <span class="text-xs bg-red-900/50 text-red-300 px-3 py-1 rounded-full">9 TOOLS</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Primary Weapons Grid -->
+        <div class="mb-16">
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-3xl font-bold blood-drip inline-block">
+                    <span class="border-b border-red-500 pb-1">PRIMARY</span> 
+                    <span class="text-red-500">WEAPONS</span>
+                </h2>
+                <div class="flex space-x-4">
+                    <button class="text-sm text-red-500 hover:text-white px-3 py-1 border border-red-500 hover:bg-red-900/30 transition">
+                        REFRESH
+                    </button>
+                    <button class="text-sm text-white bg-red-900/70 hover:bg-red-900 px-3 py-1 border border-red-900 transition">
+                        DEPLOY ALL
+                    </button>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Weapon 1 -->
+                <div class="terminal-border p-6 bg-gray-900/20 weapon-card transition-all duration-300">
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <span class="text-xs bg-red-900/70 text-red-200 px-2 py-1 rounded">STEALTH</span>
+                            <h3 class="text-xl font-bold mt-2">NIGHTMARE-00</h3>
+                        </div>
+                        <span class="text-xs bg-black/70 text-red-500 px-2 py-1 rounded font-mono">v4.2.7</span>
+                    </div>
+                    <p class="text-gray-400 text-sm mb-4">
+                        Polymorphic kernel-mode rootkit with TOR C2 channels and AI-generated mutators
+                    </p>
+                    <div class="mb-4">
+                        <div class="flex justify-between text-xs text-gray-500 mb-1">
+                            <span>DETECTION RATE</span>
+                            <span>0.3%</span>
+                        </div>
+                        <div class="w-full bg-gray-800 rounded-full h-1 overflow-hidden">
+                            <div class="bg-red-500 h-1 rounded-full" style="width: 2%"></div>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-red-500 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4" />
+                            </svg>
+                            <span class="text-xs text-gray-400 danger-level" title="Kill potential">CLASSIFIED</span>
+                        </div>
+                        <button class="text-xs text-red-500 hover:text-white px-3 py-1 border border-red-500 hover:bg-red-900/30 transition">
+                            DEPLOY
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Weapon 2 -->
+                <div class="terminal-border p-6 bg-gray-900/20 weapon-card transition-all duration-300">
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <span class="text-xs bg-red-900/70 text-red-200 px-2 py-1 rounded">DESTRUCTIVE</span>
+                            <h3 class="text-xl font-bold mt-2">BLACKOUT-X</h3>
+                        </div>
+                        <span class="text-xs bg-black/70 text-red-500 px-2 py-1 rounded font-mono">v3.1.4</span>
+                    </div>
+                    <p class="text-gray-400 text-sm mb-4">
+                        Next-gen ransomware with worm capabilities and automated negotiation system
+                    </p>
+                    <div class="mb-4">
+                        <div class="flex justify-between text-xs text-gray-500 mb-1">
+                            <span>SUCCESS RATE</span>
+                            <span>97.4%</span>
+                        </div>
+                        <div class="w-full bg-gray-800 rounded-full h-1 overflow-hidden">
+                            <div class="bg-red-500 h-1 rounded-full" style="width: 97%"></div>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-red-500 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                            </svg>
+                            <span class="text-xs text-gray-400 danger-level" title="Kill potential">EXTREME</span>
+                        </div>
+                        <button class="text-xs text-red-500 hover:text-white px-3 py-1 border border-red-500 hover:bg-red-900/30 transition">
+                            DEPLOY
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Weapon 3 -->
+                <div class="terminal-border p-6 bg-gray-900/20 weapon-card transition-all duration-300">
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <span class="text-xs bg-red-900/70 text-red-200 px-2 py-1 rounded">PERSISTENT</span>
+                            <h3 class="text-xl font-bold mt-2">SHADOW IMPLANT</h3>
+                        </div>
+                        <span class="text-xs bg-black/70 text-red-500 px-2 py-1 rounded font-mono">v5.7.2</span>
+                    </div>
+                    <p class="text-gray-400 text-sm mb-4">
+                        UEFI-level implant with air-gap jumping capabilities and quantum-resistant encryption
+                    </p>
+                    <div class="mb-4">
+                        <div class="flex justify-between text-xs text-gray-500 mb-1">
+                            <span>DETECTION RATE</span>
+                            <span>0.1%</span>
+                        </div>
+                        <div class="w-full bg-gray-800 rounded-full h-1 overflow-hidden">
+                            <div class="bg-red-500 h-1 rounded-full" style="width: 1%"></div>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-red-500 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                            </svg>
+                            <span class="text-xs text-gray-400 danger-level" title="Kill potential">CLASSIFIED</span>
+                        </div>
+                        <button class="text-xs text-red-500 hover:text-white px-3 py-1 border border-red-500 hover:bg-red-900/30 transition">
+                            DEPLOY
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Weapon 4 -->
+                <div class="terminal-border p-6 bg-gray-900/20 weapon-card transition-all duration-300">
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <span class="text-xs bg-red-900/70 text-red-200 px-2 py-1 rounded">STEALTH</span>
+                            <h3 class="text-xl font-bold mt-2">PHANTOM DRONE</h3>
+                        </div>
+                        <span class="text-xs bg-black/70 text-red-500 px-2 py-1 rounded font-mono">v2.9.1</span>
+                    </div>
+                    <p class="text-gray-400 text-sm mb-4">
+                        AI-powered autonomous drone with zero-day exploit delivery payload capacity
+                    </p>
+                    <div class="mb-4">
+                        <div class="flex justify-between text-xs text-gray-500 mb-1">
+                            <span>SUCCESS RATE</span>
+                            <span>89.2%</span>
+                        </div>
+                        <div class="w-full bg-gray-800 rounded-full h-1 overflow-hidden">
+                            <div class="bg-red-500 h-1 rounded-full" style="width: 89%"></div>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-red-500 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                            </svg>
+                            <span class="text-xs text-gray-400 danger-level" title="Kill potential">HIGH</span>
+                        </div>
+                        <button class="text-xs text-red-500 hover:text-white px-3 py-1 border border-red-500 hover:bg-red-900/30 transition">
+                            DEPLOY
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Weapon 5 -->
+                <div class="terminal-border p-6 bg-gray-900/20 weapon-card transition-all duration-300">
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <span class="text-xs bg-red-900/70 text-red-200 px-2 py-1 rounded">DESTRUCTIVE</span>
+                            <h3 class="text-xl font-bold mt-2">DATA REAPER</h3>
+                        </div>
+                        <span class="text-xs bg-black/70 text-red-500 px-2 py-1 rounded font-mono">v6.0.0</span>
+                    </div>
+                    <p class="text-gray-400 text-sm mb-4">
+                        Quantum-powered data destruction tool with magnetic interference capabilities
+                    </p>
+                    <div class="mb-4">
+                        <div class="flex justify-between text-xs text-gray-500 mb-1">
+                            <span>IRREVERSIBILITY</span>
+                            <span>100%</span>
+                        </div>
+                        <div class="w-full bg-gray-800 rounded-full h-1 overflow-hidden">
+                            <div class="bg-red-500 h-1 rounded-full" style="width: 100%"></div>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-red-500 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                            </svg>
+                            <span class="text-xs text-gray-400 danger-level" title="Kill potential">EXTREME</span>
+                        </div>
+                        <button class="text-xs text-red-500 hover:text-white px-3 py-1 border border-red-500 hover:bg-red-900/30 transition">
+                            DEPLOY
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Weapon 6 -->
+                <div class="terminal-border p-6 bg-gray-900/20 weapon-card transition-all duration-300">
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <span class="text-xs bg-red-900/70 text-red-200 px-2 py-1 rounded">PERSISTENT</span>
+                            <h3 class="text-xl font-bold mt-2">GHOST LOADER</h3>
+                        </div>
+                        <span class="text-xs bg-black/70 text-red-500 px-2 py-1 rounded font-mono">v1.3.9</span>
+                    </div>
+                    <p class="text-gray-400 text-sm mb-4">
+                        Hypervisor-level bootkit with hardware-based persistence across reinstallation
+                    </p>
+                    <div class="mb-4">
+                        <div class="flex justify-between text-xs text-gray-500 mb-1">
+                            <span>DETECTION RATE</span>
+                            <span>0.05%</span>
+                        </div>
+                        <div class="w-full bg-gray-800 rounded-full h-1 overflow-hidden">
+                            <div class="bg-red-500 h-1 rounded-full" style="width: 0.5%"></div>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-red-500 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                            </svg>
+                            <span class="text-xs text-gray-400 danger-level" title="Kill potential">HIGH</span>
+                        </div>
+                        <button class="text-xs text-red-500 hover:text-white px-3 py-1 border border-red-500 hover:bg-red-900/30 transition">
+                            DEPLOY
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Zero-Day Exploits Section -->
+        <div>
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-3xl font-bold blood-drip inline-block">
+                    <span class="border-b border-red-500 pb-1">ZERO</span> 
+                    <span class="text-red-500 uppercase">Day</span> 
+                    <span class="border-b border-red-500 pb-1">Exploits</span>
+                </h2>
+                <div class="text-xs bg-black/70 text-red-400 px-3 py-1 rounded-full">
+                    RESTRICTED ACCESS
+                </div>
+            </div>
+            
+            <div class="terminal-border p-8 bg-gray-900/10">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Exploit 1 -->
+                    <div class="border-l-2 border-red-900 pl-4">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="font-mono text-red-400">CVE-2023-33782</h3>
+                            <span class="text-xs bg-red-900/50 px-2 py-0.5 rounded text-red-200">UNPATCHED</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mb-3">
+                            Memory corruption in Azure Hypervisor allowing guest-to-host escape
+                        </p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs text-gray-500">EFFECTIVENESS: 98%</span>
+                            <button class="text-xs text-red-500 hover:text-white px-2 py-0.5 border border-red-500 hover:bg-red-900/30 transition">
+                                DETAILS
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Exploit 2 -->
+                    <div class="border-l-2 border-red-900 pl-4">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="font-mono text-red-400">CVE-2023-48276</h3>
+                            <span class="text-xs bg-red-800/50 px-2 py-0.5 rounded text-red-300">PATCHED</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mb-3">
+                            AWS Lambda RCE through crafted environment variables
+                        </p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs text-gray-500">EFFECTIVENESS: 76%</span>
+                            <button class="text-xs text-red-500 hover:text-white px-2 py-0.5 border border-red-500 hover:bg-red-900/30 transition">
+                                DETAILS
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Exploit 3 -->
+                    <div class="border-l-2 border-red-900 pl-4">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="font-mono text-red-400">CVE-2023-41962</h3>
+                            <span class="text-xs bg-red-900/50 px-2 py-0.5 rounded text-red-200">UNPATCHED</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mb-3">
+                            Kubernetes privilege escalation via malformed webhook configurations
+                        </p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs text-gray-500">EFFECTIVENESS: 92%</span>
+                            <button class="text-xs text-red-500 hover:text-white px-2 py-0.5 border border-red-500 hover:bg-red-900/30 transition">
+                                DETAILS
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-10 text-center">
+                    <button class="text-sm text-white bg-red-900/80 hover:bg-red-900 px-8 py-2 border border-red-900 transition tracking-wider">
+                        REQUEST CLASSIFIED EXPLOITS
+                    </button>
+                    <p class="text-xs text-gray-500 mt-4">
+                        Warning: Zero-day exploits have limited lifespan. Each use increases detection risk.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Weapon Deployment Modal (Hidden by default) -->
+    <div class="fixed inset-0 bg-black/80 z-50 flex items-center justify-center pointer-events-none opacity-0 transition-opacity duration-300" id="deployment-modal">
+        <div class="terminal-border bg-gray-900 w-full max-w-2xl mx-4 p-8 relative">
+            <button class="absolute top-4 right-4 text-gray-400 hover:text-white" id="close-modal">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+            
+            <h3 class="text-2xl font-bold mb-1" id="modal-title">DEPLOY WEAPON</h3>
+            <p class="text-gray-400 text-sm mb-6" id="modal-subtitle">Configure attack parameters</p>
+            
+            <div class="mb-6">
+                <label class="block text-gray-400 text-sm mb-2">TARGET</label>
+                <input type="text" class="w-full bg-gray-800 border border-gray-700 text-white px-4 py-2 focus:outline-none focus:border-red-500" placeholder="Enter IP, URL or network range">
+            </div>
+            
+            <div class="mb-6">
+                <label class="block text-gray-400 text-sm mb-2">DELIVERY METHOD</label>
+                <select class="w-full bg-gray-800 border border-gray-700 text-white px-4 py-2 focus:outline-none focus:border-red-500">
+                    <option>Spearphishing (SMTP)</option>
+                    <option>Drive-by Download (HTTP)</option>
+                    <option>Removable Media (USB)</option>
+                    <option>Supply Chain Compromise</option>
+                    <option>Physical Access</option>
+                </select>
+            </div>
+            
+            <div class="mb-8">
+                <label class="block text-gray-400 text-sm mb-2">AUTOMATION LEVEL</label>
+                <div class="flex items-center space-x-4">
+                    <div class="flex items-center">
+                        <input type="radio" name="automation" id="auto-low" class="text-red-500 focus:ring-red-500" checked>
+                        <label for="auto-low" class="ml-2 text-sm text-gray-300">Manual Operation</label>
+                    </div>
+                    <div class="flex items-center">
+                        <input type="radio" name="automation" id="auto-medium" class="text-red-500 focus:ring-red-500">
+                        <label for="auto-medium" class="ml-2 text-sm text-gray-300">AI-Assisted</label>
+                    </div>
+                    <div class="flex items-center">
+                        <input type="radio" name="automation" id="auto-high" class="text-red-500 focus:ring-red-500">
+                        <label for="auto-high" class="ml-2 text-sm text-gray-300">Autonomous</label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flex justify-between items-center">
+                <div class="text-xs bg-red-900/50 text-red-200 px-3 py-2 rounded">
+                    DANGER: DEPLOYMENT CANNOT BE UNDONE
+                </div>
+                <button class="text-white bg-red-900 hover:bg-red-800 px-6 py-2 border border-red-900 transition tracking-wider">
+                    CONFIRM DEPLOYMENT
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Grim Footer -->
+    <footer class="border-t border-red-900/50 py-8 px-4 bg-black/50">
+        <div class="container mx-auto flex flex-col md:flex-row justify-between items-center">
+            <div class="flex items-center space-x-2 mb-4 md:mb-0">
+                <div class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></div>
+                <span class="text-sm">CLASSIFIED: TOP SECRET // PROJECT NEXUS</span>
+            </div>
+            <div class="text-xs text-gray-500">
+                <div class="flex flex-col md:flex-row md:space-x-6 text-center md:text-left">
+                    <span>ALL WEAPONS ARE DIGITAL CONSTRUCTS</span>
+                    <span>|</span>
+                    <span>UNAUTHORIZED ACCESS WILL BE TERMINATED</span>
+                    <span>|</span>
+                    <span>v4.2.1-ARMED</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Weapon deployment modal
+        const deployButtons = document.querySelectorAll('button:contains("DEPLOY")');
+        const modal = document.getElementById('deployment-modal');
+        const closeModal = document.getElementById('close-modal');
+        
+        deployButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const weaponName = button.closest('.weapon-card').querySelector('h3').textContent;
+                document.getElementById('modal-title').textContent = `DEPLOY ${weaponName}`;
+                document.getElementById('modal-subtitle').textContent = 'Configure attack parameters';
+                
+                modal.classList.remove('pointer-events-none', 'opacity-0');
+                modal.classList.add('pointer-events-auto', 'opacity-100');
+            });
+        });
+        
+        closeModal.addEventListener('click', () => {
+            modal.classList.remove('pointer-events-auto', 'opacity-100');
+            modal.classList.add('pointer-events-none', 'opacity-0');
+        });
+        
+        // Blood drip effect on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            const bloodDrips = document.querySelectorAll('.blood-drip');
+            bloodDrips.forEach((drip, index) => {
+                setTimeout(() => {
+                    drip.classList.add('animate__animated', 'animate__pulse');
+                }, index * 200);
+            });
+            
+            // Random security alert
+            setTimeout(() => {
+                const alert = document.createElement('div');
+                alert.className = 'fixed bottom-4 right-4 bg-black border border-red-900 p-4 max-w-xs animate__animated animate__fadeInUp';
+                alert.innerHTML = `
+                    <div class="flex items-start">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-500 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                        </svg>
+                        <div>
+                            <div class="font-bold text-red-500 mb-1">SECURITY NOTICE</div>
+                            <div class="text-xs text-gray-400">Weapon cache connection encrypted. All deployments logged.</div>
+                        </div>
+                    </div>
+                `;
+                document.body.appendChild(alert);
+                
+                setTimeout(() => {
+                    alert.classList.add('animate__fadeOutDown');
+                    setTimeout(() => alert.remove(), 1000);
+                }, 5000);
+            }, 3000);
+        });
+    </script>
+</body>
+</html>
