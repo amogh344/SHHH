@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project NEXUS | AI Cyber Warfare</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <script src="https://unpkg.com/scrollreveal@4.0.0/dist/scrollreveal.min.js"></script>
+    <style>
+        :root {
+            --primary: #e53e3e;
+            --secondary: #1a202c;
+            --accent: #fff;
+        }
+        body {
+            background-color: var(--secondary);
+            color: var(--accent);
+            font-family: 'Courier New', monospace;
+            overflow-x: hidden;
+        }
+        .glow {
+            text-shadow: 0 0 10px var(--primary), 0 0 20px var(--primary);
+        }
+        .terminal-border {
+            border: 1px solid var(--primary);
+            box-shadow: 0 0 15px rgba(229, 62, 62, 0.5);
+        }
+        .pulse-animation {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { opacity: 0.7; }
+            50% { opacity: 1; }
+            100% { opacity: 0.7; }
+        }
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease-out;
+        }
+        .revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .phase-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(229, 62, 62, 0.4);
+        }
+        .neon-button {
+            background: transparent;
+            border: 2px solid var(--primary);
+            transition: all 0.3s;
+        }
+        .neon-button:hover {
+            background: var(--primary);
+            box-shadow: 0 0 10px var(--primary), 0 0 20px var(--primary);
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <!-- Hacker Terminal Landing -->
+    <div class="relative h-screen overflow-hidden">
+        <!-- Animated Background -->
+        <div class="absolute inset-0 bg-black opacity-90 z-0">
+            <div class="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-5"></div>
+            <div class="absolute inset-0 bg-gradient-to-br from-transparent via-red-900/10 to-transparent"></div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="relative z-10 h-full flex flex-col justify-center items-center px-4">
+            <div class="text-center mb-12 animate__animated animate__fadeIn">
+                <h1 class="text-6xl md:text-8xl font-bold glow mb-4">PROJECT <span class="text-red-500">NEXUS</span></h1>
+                <p class="text-xl md:text-2xl opacity-80 mb-8 tracking-wider">AI-DRIVEN CYBER WARFARE SIMULATOR</p>
+                <div class="pulse-animation">
+                    <div class="w-4 h-4 bg-red-500 rounded-full mx-auto"></div>
+                </div>
+            </div>
+
+            <!-- Navigation Matrix -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-4xl">
+                <a href="#initiation" class="terminal-border p-6 hover:bg-gray-900/50 transition-all duration-300 scroll-reveal">
+                    <h3 class="text-red-500 text-xl mb-2">INITIATION</h3>
+                    <p class="text-gray-300">Phase 0: Project Foundations</p>
+                </a>
+                <a href="#development" class="terminal-border p-6 hover:bg-gray-900/50 transition-all duration-300 scroll-reveal" style="transition-delay: 0.2s">
+                    <h3 class="text-red-500 text-xl mb-2">RESEARCH</h3>
+                    <p class="text-gray-300">Phase 1: Planning & Design</p>
+                </a>
+                <a href="#testing" class="terminal-border p-6 hover:bg-gray-900/50 transition-all duration-300 scroll-reveal" style="transition-delay: 0.4s">
+                    <h3 class="text-red-500 text-xl mb-2">DEPLOYMENT</h3>
+                    <p class="text-gray-300">Phase 2-4: Execution</p>
+                </a>
+            </div>
+
+            <!-- Scrolling Indicator -->
+            <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                </svg>
+            </div>
+        </div>
+    </div>
+
+    <!-- Project Timeline -->
+    <div id="timeline" class="py-20 px-4 md:px-8 lg:px-16 max-w-7xl mx-auto">
+        <h2 class="text-4xl md:text-5xl font-bold text-center mb-16 glow">OPERATION <span class="text-red-500">TIMELINE</span></h2>
+        
+        <!-- Phase Cards -->
+        <div class="space-y-20">
+            <!-- Phase 0 -->
+            <div id="initiation" class="scroll-reveal">
+                <div class="terminal-border p-8 phase-card transition-all duration-300 bg-gray-900/30">
+                    <div class="flex flex-col md:flex-row gap-8">
+                        <div class="md:w-1/3">
+                            <div class="flex items-center gap-4 mb-6">
+                                <span class="text-5xl font-bold text-red-500">00</span>
+                                <div>
+                                    <h3 class="text-2xl font-bold">INITIATION</h3>
+                                    <p class="text-gray-400">Months 0-1</p>
+                                </div>
+                            </div>
+                            <img src="https://images.unsplash.com/photo-1563770660941-10a636077952?q=80&w=1964&auto=format&fit=crop" 
+                                 alt="Initiation" class="w-full h-48 object-cover rounded-md opacity-90">
+                        </div>
+                        <div class="md:w-2/3">
+                            <div class="space-y-4">
+                                <div class="flex items-start gap-2">
+                                    <span class="text-red-500">>></span>
+                                    <p>Project Proposal: Define goals and secure stakeholder approval</p>
+                                </div>
+                                <div class="flex items-start gap-2">
+                                    <span class="text-red-500">>></span>
+                                    <p>Feasibility Study: Assess technical and legal requirements</p>
+                                </div>
+                                <div class="flex items-start gap-2">
+                                    <span class="text-red-500">>></span>
+                                    <p>Project Charter: Formal documentation of objectives</p>
+                                </div>
+                            </div>
+                            <button class="neon-button mt-6 px-6 py-2 text-sm font-mono" onclick="redirectToPhase('initiation')">
+                                ACCESS PHASE ZERO
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 1 -->
+            <div class="scroll-reveal">
+                <div class="terminal-border p-8 phase-card transition-all duration-300 bg-gray-900/30">
+                    <div class="flex flex-col md:flex-row gap-8">
+                        <div class="md:w-1/3 order-last md:order-first">
+                            <div class="space-y-4">
+                                <div class="flex items-start gap-2">
+                                    <span class="text-red-500">>></span>
+                                    <p>Literature Survey: QUIC, DarkBERT, adversarial ML research</p>
+                                </div>
+                                <div class="flex items-start gap-2">
+                                    <span class="text-red-500">>></span>
+                                    <p>System Design: Architecture for both AI teams</p>
+                                </div>
+                                <div class="flex items-start gap-2">
+                                    <span class="text-red-500">>></span>
+                                    <p>Project Plan: Timeline, resources, and risk management</p>
+                                </div>
+                            </div>
+                            <button class="neon-button mt-6 px-6 py-2 text-sm font-mono" onclick="redirectToPhase('research')">
+                                ACCESS RESEARCH DATA
+                            </button>
+                        </div>
+                        <div class="md:w-2/3 order-first md:order-last">
+                            <div class="flex items-center gap-4 mb-6 justify-end">
+                                <div class="text-right">
+                                    <h3 class="text-2xl font-bold">RESEARCH & PLANNING</h3>
+                                    <p class="text-gray-400">Months 1-2</p>
+                                </div>
+                                <span class="text-5xl font-bold text-red-500">01</span>
+                            </div>
+                            <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?q=80&w=2070&auto=format&fit=crop" 
+                                 alt="Research" class="w-full h-48 object-cover rounded-md opacity-90">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 2 -->
+            <div class="scroll-reveal">
+                <div class="terminal-border p-8 phase-card transition-all duration-300 bg-gray-900/30">
+                    <div class="flex flex-col md:flex-row gap-8">
+                        <div class="md:w-1/3">
+                            <div class="flex items-center gap-4 mb-6">
+                                <span class="text-5xl font-bold text-red-500">02</span>
+                                <div>
+                                    <h3 class="text-2xl font-bold">DEVELOPMENT</h3>
+                                    <p class="text-gray-400">Months 3-6</p>
+                                </div>
+                            </div>
+                            <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop" 
+                                 alt="Development" class="w-full h-48 object-cover rounded-md opacity-90">
+                        </div>
+                        <div class="md:w-2/3">
+                            <div class="space-y-4">
+                                <div class="flex items-start gap-2">
+                                    <span class="text-red-500">>></span>
+                                    <p>Hardware Setup: Raspberry Pi clusters and network testbed</p>
+                                </div>
+                                <div class="flex items-start gap-2">
+                                    <span class="text-red-500">>></span>
+                                    <p>Red Team: GPT-4 phishing generator, RL malware optimizer</p>
+                                </div>
+                                <div class="flex items-start gap-2">
+                                    <span class="text-red-500">>></span>
+                                    <p>Blue Team: DarkBERT phishing detection, Suricata+ML integration</p>
+                                </div>
+                            </div>
+                            <button class="neon-button mt-6 px-6 py-2 text-sm font-mono" onclick="redirectToPhase('development')">
+                                ACCESS DEV CONSOLE
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 3 -->
+            <div class="scroll-reveal">
+                <div class="terminal-border p-8 phase-card transition-all duration-300 bg-gray-900/30">
+                    <div class="flex flex-col md:flex-row gap-8">
+                        <div class="md:w-1/3 order-last md:order-first">
+                            <div class="space-y-4">
+                                <div class="flex items-start gap-2">
+                                    <span class="text-red-500">>></span>
+                                    <p>Simulation Testing: Attack/defense scenario validation</p>
+                                </div>
+                                <div class="flex items-start gap-2">
+                                    <span class="text-red-500">>></span>
+                                    <p>Performance Metrics: Detection rates, false positives</p>
+                                </div>
+                                <div class="flex items-start gap-2">
+                                    <span class="text-red-500">>></span>
+                                    <p>User Acceptance: Feedback incorporation</p>
+                                </div>
+                            </div>
+                            <button class="neon-button mt-6 px-6 py-2 text-sm font-mono" onclick="redirectToPhase('testing')">
+                                ACCESS TEST LAB
+                            </button>
+                        </div>
+                        <div class="md:w-2/3 order-first md:order-last">
+                            <div class="flex items-center gap-4 mb-6 justify-end">
+                                <div class="text-right">
+                                    <h3 class="text-2xl font-bold">TESTING & VALIDATION</h3>
+                                    <p class="text-gray-400">Months 7-8</p>
+                                </div>
+                                <span class="text-5xl font-bold text-red-500">03</span>
+                            </div>
+                            <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2070&auto=format&fit=crop" 
+                                 alt="Testing" class="w-full h-48 object-cover rounded-md opacity-90">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="border-t border-red-900/50 py-12 px-4 md:px-8 lg:px-16">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div>
+                <h3 class="text-xl font-bold mb-4 text-red-500">PROJECT NEXUS</h3>
+                <p class="opacity-75">Advanced AI-driven cyber warfare simulation platform for testing next-generation attack/defense systems.</p>
+            </div>
+            <div>
+                <h3 class="text-xl font-bold mb-4 text-red-500">ACCESS</h3>
+                <ul class="space-y-2">
+                    <li><a href="redteam.html" class="hover:text-red-500 transition">Red Team Portal</a></li>
+                    <li><a href="blueteam.html" class="hover:text-red-500 transition">Blue Team Portal</a></li>
+                    <li><a href="#" class="hover:text-red-500 transition">Research Database</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-xl font-bold mb-4 text-red-500">SECURITY</h3>
+                <p class="opacity-75 mb-4">Classified: Authorized personnel only</p>
+                <div class="flex space-x-4">
+                    <span class="flex items-center"><span class="w-2 h-2 bg-red-500 rounded-full mr-2"></span> TOP SECRET</span>
+                </div>
+            </div>
+        </div>
+        <div class="mt-12 pt-6 border-t border-red-900/20 text-center opacity-70 text-sm">
+            <p>© 2024 PROJECT NEXUS | ALL RIGHTS RESERVED</p>
+        </div>
+    </footer>
+
+    <script>
+        // Scroll Reveal Animation
+        ScrollReveal().reveal('.scroll-reveal', {
+            delay: 200,
+            distance: '50px',
+            easing: 'ease-out',
+            interval: 100
+        });
+
+        // Terminal redirection (simulated)
+        function redirectToPhase(phase) {
+            const terminalEffect = document.createElement('div');
+            terminalEffect.className = 'fixed inset-0 bg-black z-50 flex items-center justify-center';
+            terminalEffect.innerHTML = `
+                <div class="text-center">
+                    <div class="text-red-500 text-4xl mb-4">>> ACCESSING ${phase.toUpperCase()} PORTAL</div>
+                    <div class="text-white border-l-2 border-red-500 pl-4">
+                        <p class="mb-1">> Decrypting security protocols...</p>
+                        <p class="mb-1">> Validating credentials...</p>
+                        <p>> Establishing secure connection...</p>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(terminalEffect);
+            
+            setTimeout(() => {
+                terminalEffect.innerHTML += `<div class="mt-8 text-green-500">> ACCESS GRANTED</div>`;
+                setTimeout(() => {
+                    window.location.href = `phase_${phase}.html`;
+                }, 1000);
+            }, 3000);
+        }
+
+        // Auto-type effect for future enhancement
+        // Would be implemented on individual phase pages
+    </script>
+</body>
+</html>
